@@ -8,7 +8,6 @@ final class HconSerializer {
 
 	/**
 	 * The pattern used to tokenize HCON-formatted strings.
-	 * @var string
 	 */
 	private const string HconPattern = '@(?:"([^"]+)"|\'([^\']+)\'|([^\s,:]+))(?:\s*:\s*(?:"([^"]*)"|\'([^\']*)\'|<((?:[^/]|\/(?!>))+)\/>|([^\s,]+)))?(?=\s|,|$)@';
 
@@ -42,7 +41,7 @@ final class HconSerializer {
 
 			$key = $doubleQuotedKey ?? $singleQuotedKey ?? $bareKey;
 			$value = mb_trim($doubleQuotedValue ?? $singleQuotedValue ?? $hyperscriptValue ?? $bareValue ?? "true");
-			try { $value = json_decode($value, associative: true, depth: $depth, flags: JSON_THROW_ON_ERROR); } catch (\Throwable) {}
+			try { $value = json_decode($value, associative: true, depth: $depth, flags: JSON_THROW_ON_ERROR); } catch (\JsonException) {}
 
 			if (!str_contains($bareKey, ".")) self::merge([$key => $value], $result);
 			else {
@@ -59,7 +58,7 @@ final class HconSerializer {
 	/**
 	 * Deep-merges a source array into a target array.
 	 * @param array<string, mixed> $source The source array.
-	 * @param array<string, mixed> &$target The target array.
+	 * @param array<string, mixed> $target The target array.
 	 */
 	private static function merge(array $source, array &$target): void {
 		foreach ($source as $key => $value) {
