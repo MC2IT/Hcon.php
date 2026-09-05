@@ -2,10 +2,10 @@
 namespace Mc2it\Hcon;
 
 /**
- * Converts a HCON-formatted string to a hash table.
+ * Converts a HCON-formatted string to an associative array.
  * @param string $hcon The HCON-formatted string to convert.
  * @param int $depth The maximum depth the HCON input is allowed to have.
- * @return array<string, mixed> The hash table corresponding to the specified HCON-formatted string.
+ * @return array<string, mixed> The associative array corresponding to the specified HCON-formatted string.
  */
 function hcon_decode(string $hcon, int $depth = 1024): array {
 	return HconSerializer::deserialize($hcon, $depth);
