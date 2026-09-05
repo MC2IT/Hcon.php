@@ -1,0 +1,42 @@
+{
+	"description": "Parse HCON (htmx Configuration Object Notation) in PHP.",
+	"homepage": "https://github.com/MC2IT/Hcon.php",
+	"license": "MIT",
+	"name": "mc2it/hcon",
+	"type": "library",
+	"version": "1.0.0",
+	"authors": [
+		{"email": "dev@mc2it.com", "homepage": "https://www.mc2it.com", "name": "MC2IT"}
+	],
+	"autoload": {
+		"psr-4": {"Mc2it\\Hcon\\": "Sources/"}
+	},
+	"autoload-dev": {
+		"psr-4": {"Mc2it\\Hcon\\": "Tests/"}
+	},
+	"config": {
+		"platform-check": false
+	},
+	"keywords": [
+		"configuration",
+		"hcon",
+		"htmx",
+		"json",
+		"parser"
+	],
+	"require": {
+		"php": ">=8.5.0",
+		"ext-json": "*",
+		"ext-mbstring": "*",
+		"ext-pcre": "*",
+		"ext-spl": "*"
+	},
+	"require-dev": {
+		"phpstan/phpstan": "^2.2.13",
+		"phpunit/phpunit": "^13.3.2"
+	},
+	"support": {
+		"docs": "https://github.com/MC2IT/Hcon.php/tree/main/Documentation",
+		"issues": "https://github.com/MC2IT/Hcon.php/issues"
+	}
+}
