@@ -11,7 +11,7 @@ composer require mc2it/hcon
 For detailed instructions, see the [installation guide](Installation.md).
 
 ## Usage
-This library provides the `ConvertFrom-Hcon` function, which allows you to convert a [HCON-formatted string](https://four.htmx.org/docs/hcon-guide) to an associative array:
+This library provides the `hcon_decode()` function, which allows you to convert a [HCON-formatted string](https://four.htmx.org/docs/hcon-guide) to an associative array:
 
 ```php
 use function Mc2it\Hcon\hcon_decode;
