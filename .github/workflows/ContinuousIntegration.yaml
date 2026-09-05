@@ -1,0 +1,23 @@
+name: ContinuousIntegration
+on: push
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  Test:
+    runs-on: windows-latest
+    steps:
+      - name: Fetch sources
+        uses: actions/checkout@v7
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: none
+          extensions: curl, intl, mbstring, simplexml
+          php-version: latest
+      - name: Install dependencies
+        run: ./Invoke.ps1 Install
+      - name: Run tests
+        run: ./Invoke.ps1 Test
