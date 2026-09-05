@@ -43,12 +43,12 @@ final class HconSerializer {
 			$value = mb_trim($doubleQuotedValue ?? $singleQuotedValue ?? $hyperscriptValue ?? $bareValue ?? "true");
 			try { $value = json_decode($value, associative: true, depth: $depth, flags: JSON_THROW_ON_ERROR); } catch (\JsonException) {}
 
-			if (!str_contains($bareKey, ".")) self::merge([$key => $value], $result);
+			if (!str_contains($bareKey, ".")) self::mergeArrays([$key => $value], $result);
 			else {
 				$pair = $value;
 				$segments = explode(".", $key);
 				for ($index = count($segments) - 1; $index >= 0; $index--) $pair = [$segments[$index] => $pair];
-				self::merge($pair, $result);
+				self::mergeArrays($pair, $result);
 			}
 		}
 
@@ -60,9 +60,9 @@ final class HconSerializer {
 	 * @param array<string, mixed> $source The source array.
 	 * @param array<string, mixed> $target The target array.
 	 */
-	private static function merge(array $source, array &$target): void {
+	private static function mergeArrays(array $source, array &$target): void {
 		foreach ($source as $key => $value) {
-			if (is_array($value) && is_array($target[$key] ?? null)) self::merge($value, $target[$key]);
+			if (is_array($value) && is_array($target[$key] ?? null)) self::mergeArrays($value, $target[$key]);
 			else $target[$key] = $value;
 		}
 	}
