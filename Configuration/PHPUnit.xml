@@ -1,0 +1,19 @@
+<phpunit cacheDirectory="../Temp/PHPUnit" testdox="true"
+	displayDetailsOnTestsThatTriggerDeprecations="true"
+	displayDetailsOnTestsThatTriggerErrors="true"
+	displayDetailsOnTestsThatTriggerNotices="true"
+	displayDetailsOnTestsThatTriggerWarnings="true"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/13.3/phpunit.xsd">
+
+	<source>
+		<include>
+			<directory>../Sources</directory>
+		</include>
+	</source>
+	<testsuites>
+		<testsuite name="Default">
+			<directory suffix="Tests.php">../Tests</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
