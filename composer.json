@@ -9,6 +9,7 @@
 		{"email": "dev@mc2it.com", "homepage": "https://www.mc2it.com", "name": "MC2IT"}
 	],
 	"autoload": {
+		"files": ["Sources/Main.php"],
 		"psr-4": {"Mc2it\\Hcon\\": "Sources/"}
 	},
 	"autoload-dev": {
