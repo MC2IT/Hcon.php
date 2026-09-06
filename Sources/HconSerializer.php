@@ -18,16 +18,16 @@ final class HconSerializer {
 	 * @return array<string, mixed> The associative array corresponding to the specified HCON-formatted string.
 	 */
 	public static function deserialize(string $hcon, int $depth = 1024): array {
-		static $getGroup = function(array $match, int $index): ?string {
-			$value = $match[$index] ?? "";
-			return mb_strlen($value) ? $value : null;
-		};
-
 		$depth = max(1, $depth);
 		$hcon = trim($hcon);
 		if (!mb_strlen($hcon)) return [];
 		if (str_starts_with($hcon, "{")) return json_decode($hcon, associative: true, depth: $depth, flags: JSON_THROW_ON_ERROR);
 		if (!preg_match_all(self::HconPattern, $hcon, $matches, PREG_SET_ORDER)) return [];
+
+		static $getGroup = function(array $match, int $index): ?string {
+			$value = $match[$index] ?? "";
+			return mb_strlen($value) ? $value : null;
+		};
 
 		$result = [];
 		foreach ($matches as $match) {
