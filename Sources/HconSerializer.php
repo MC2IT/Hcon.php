@@ -47,7 +47,7 @@ final class HconSerializer {
 			else {
 				$pair = $value;
 				$segments = explode(".", $key);
-				for ($index = count($segments) - 1; $index >= 0; $index--) $pair = [$segments[$index] => $pair];
+				foreach (range(count($segments) - 1, 0) as $index) $pair = [$segments[$index] => $pair];
 				self::mergeArrays($pair, $result);
 			}
 		}
