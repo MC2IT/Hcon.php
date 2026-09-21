@@ -6,7 +6,7 @@ and [Composer](https://getcomposer.org), the PHP package manager, up and running
 	
 You can verify if you're already good to go with the following commands:
 
-```shell
+```powershell
 php --version
 # PHP 8.5.10 (cli) (built: Aug 25 2026 21:23:48) (NTS Visual C++ 2022 x64)
 
@@ -19,7 +19,7 @@ composer --version
 ### 1. Install it
 From a command prompt, run:
 
-```shell
+```powershell
 composer require mc2it/hcon
 ```
 

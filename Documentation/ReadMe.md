@@ -4,7 +4,7 @@ Parse [HCON](https://four.htmx.org/docs/hcon-guide) (htmx Configuration Object N
 ## Quick start
 Install the latest version of **HCON for PHP** with [Composer](https://getcomposer.org) package manager:
 
-```shell
+```powershell
 composer require mc2it/hcon
 ```
 
