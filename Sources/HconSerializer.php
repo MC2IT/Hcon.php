@@ -24,11 +24,11 @@ final class HconSerializer {
 		if (str_starts_with($hcon, "{")) return json_decode($hcon, associative: true, depth: $depth, flags: JSON_THROW_ON_ERROR);
 		if (!preg_match_all(self::HconPattern, $hcon, $matches, PREG_SET_ORDER)) return [];
 
-		$result = [];
+		$target = [];
 		foreach ($matches as $match) {
 			$doubleQuotedKey = self::getMatchGroup($match, 1); // "key"
 			$singleQuotedKey = self::getMatchGroup($match, 2); // 'key'
-			$bareKey = self::getMatchGroup($match, 3); // key
+			$bareKey = (string) self::getMatchGroup($match, 3); // key
 			$doubleQuotedValue = self::getMatchGroup($match, 4); // "value"
 			$singleQuotedValue = self::getMatchGroup($match, 5); // 'value'
 			$hyperscriptValue = self::getMatchGroup($match, 6); // <value/>
@@ -38,23 +38,23 @@ final class HconSerializer {
 			$value = $doubleQuotedValue ?? $singleQuotedValue ?? $hyperscriptValue ?? $bareValue ?? "true" |> mb_trim(...);
 			try { $value = json_decode($value, associative: true, depth: $depth, flags: JSON_THROW_ON_ERROR); } catch (\JsonException) {}
 
-			if (!str_contains($bareKey, ".")) self::mergeArrays([$key => $value], $result);
+			if (!str_contains($bareKey, ".")) self::mergeArrays([$key => $value], $target);
 			else {
-				$pair = $value;
+				$source = $value;
 				$segments = explode(".", $key);
-				foreach (range(count($segments) - 1, 0) as $index) $pair = [$segments[$index] => $pair];
-				self::mergeArrays($pair, $result);
+				foreach (range(count($segments) - 1, 0) as $index) $source = [$segments[$index] => $source];
+				self::mergeArrays($source, $target);
 			}
 		}
 
-		return $result;
+		return $target;
 	}
 
 	/**
 	 * Gets the value of the capturing group with the specified index in a given regular expression match.
-	 * @param array $match The regular expression match.
+	 * @param array<string|null> $match The regular expression match.
 	 * @param int $index The index of the capturing group.
-	 * @return null|string The value of the capturing group, or `null` if the group has not been matched in the input string.
+	 * @return string|null The value of the capturing group, or `null` if the group has not been matched in the input string.
 	 */
 	private static function getMatchGroup(array $match, int $index): ?string {
 		$value = $match[$index] ?? "";
