@@ -4,7 +4,7 @@ namespace Mc2it\Hcon;
 /**
  * Provides functionality to deserialize HCON-formatted string into associative arrays.
  */
-final class HconSerializer {
+class HconSerializer {
 
 	/**
 	 * The pattern used to tokenize HCON-formatted strings.

@@ -9,7 +9,7 @@ use function PHPUnit\Framework\assertArraysAreEqual;
  * Tests the features of the {@see HconSerializer} class.
  */
 #[TestDox("HconSerializer")]
-final class HconSerializerTests extends TestCase {
+class HconSerializerTests extends TestCase {
 
 	/**
 	 * Gets the test data used by the `deserialize()` method.
