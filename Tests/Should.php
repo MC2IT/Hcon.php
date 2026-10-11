@@ -61,6 +61,15 @@ class Should {
 	}
 
 	/**
+	 * Tests whether the given sequence contains the specified value.
+	 * @param iterable<mixed> $sequence The sequence expected to contain the specified value.
+	 * @return \Closure The closure that tests whether the given sequence contains the specified value.
+	 */
+	public static function beOneOf(iterable $sequence): \Closure {
+		return static fn(mixed $expected) => Assert::assertContains($expected, $sequence);
+	}
+
+	/**
 	 * Tests whether two sequences contain equal elements in the same order.
 	 * @param iterable<mixed> $expected The sequence expected by the test.
 	 * @return \Closure The closure that tests whether the two sequences contain equal elements in the same order.
@@ -104,11 +113,35 @@ class Should {
 	}
 
 	/**
+	 * Tests whether the specified action does not throw an exception of the expected type.
+	 * @param class-string<\Throwable> $expectedType The type of exception expected to not be thrown.
+	 * @return \Closure The closure that tests whether the specified action does not throw an exception of the expected type.
+	 */
+	public static function notThrow(string $expectedType = \Throwable::class): \Closure {
+		return static function(callable $action) use ($expectedType) {
+			try { $action(); Assert::assertTrue(true); } // @phpstan-ignore staticMethod.alreadyNarrowedType
+			catch (\Throwable $ex) { Assert::assertNotInstanceOf($expectedType, $ex); } // @phpstan-ignore staticMethod.impossibleType
+		};
+	}
+
+	/**
 	 * Tests whether the specified string begins with the given prefix.
 	 * @param non-empty-string $expectedPrefix The string expected to be a prefix of the tested value.
 	 * @return \Closure The closure that tests whether the specified string begins with the given prefix.
 	 */
 	public static function startWith(string $expectedPrefix): \Closure {
 		return static fn(string $value) => Assert::assertStringStartsWith($expectedPrefix, $value);
+	}
+
+	/**
+	 * Tests whether the specified action throws an exception of the expected type.
+	 * @param class-string<\Throwable> $expectedType The type of exception expected to be thrown.
+	 * @return \Closure The closure that tests whether the specified action throws an exception of the expected type.
+	 */
+	public static function throw(string $expectedType = \Throwable::class): \Closure {
+		return static function(callable $action) use ($expectedType) {
+			try { $action(); Assert::fail(); }
+			catch (\Throwable $ex) { Assert::assertInstanceOf($expectedType, $ex); }
+		};
 	}
 }
