@@ -3,7 +3,6 @@ namespace Mc2it\Hcon;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\{DataProvider, Test, TestDox};
-use function PHPUnit\Framework\assertArraysAreEqual;
 
 /**
  * Tests the features of the {@see HconSerializer} class.
@@ -35,6 +34,6 @@ class HconSerializerTests extends TestCase {
 	 */
 	#[Test, TestDox("deserialize()"), DataProvider("getDeserializeData")]
 	public function deserialize(string $hcon, array $expected): void {
-		assertArraysAreEqual($expected, HconSerializer::deserialize($hcon));
+		HconSerializer::deserialize($hcon) |> Should::beSequence($expected);
 	}
 }
