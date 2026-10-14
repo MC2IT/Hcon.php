@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"name": "mc2it/hcon",
 	"type": "library",
-	"version": "1.0.0",
+	"version": "2026.10.0",
 	"authors": [
 		{"email": "dev@mc2it.com", "homepage": "https://www.mc2it.com", "name": "MC2IT"}
 	],
