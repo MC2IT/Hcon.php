@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 namespace Mc2it\Hcon;
 
+use Belin\Should\Should;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\{DataProvider, Test, TestDox};
 
